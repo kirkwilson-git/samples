@@ -1,0 +1,65 @@
+//DOCUMENTATION: http://www.graphviz.org/doc/info/shapes.html
+// USAGE:
+// dot -Tpdf -O text.dot
+// 
+// This is a sample file I made as a reference for common options (to me) when generating a diagram.
+// You'll need Graphviz installed
+digraph G { 
+    //  
+    // Defaults
+    //  
+fontsize=30
+fontname = "helvetica-bold"
+label = "this is the title"
+labelloc = "t" // place the labe at the top (b seems to be default)
+
+    graph [pad="0.5", nodesep="0.5", ranksep="3"]
+    // Box for entities
+    node [shape=none, margin=0.2]
+    
+    rankdir=LR
+  
+    //  
+    // Entities
+    //  
+    Article 
+    [label=<
+        <table border="0" cellborder="1" cellspacing="0" cellpadding="3">
+            <tr><td bgcolor="lightblue"><b>Article</b></td></tr>
+            <tr><td align="left">id: int(11)</td></tr>
+            <tr><td align="left" bgcolor="#d0e0d0" fontname="helvetica-bold">author: int(11)</td></tr>
+            <tr><td align="left"><font face="helvetica" point-size="10">title: varchar(255)</font></td></tr>
+            <tr><td align="left">content: longtext</td></tr>
+            <tr><td align="left">created: datetime</td></tr>
+            <tr><td align="left">modified: datetime</td></tr>
+        </table>
+    >]
+ 
+    Comment [label=<
+        <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+            <tr><td bgcolor="lightblue">Comment</td></tr>
+            <tr><td align="left">id: int(11)</td></tr>
+            <tr><td align="left">author: int(11)</td></tr>
+            <tr><td align="left">content: longtext</td></tr>
+            <tr><td align="left">created: datetime</td></tr>
+            <tr><td align="left" port="modified">modified: datetime</td></tr>
+        </table>
+    >] 
+
+    Second [label=<
+        <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+            <tr><td bgcolor="lightblue">Second</td></tr>
+            <tr><td align="left">id: int(11)</td></tr>
+            <tr><td align="left" port="author">author: int(11)</td></tr>
+            <tr><td align="left">content: longtext</td></tr>
+            <tr><td align="left">created: datetime</td></tr>
+            <tr><td align="left" port="modified">modified: datetime</td></tr>
+        </table>
+    >]   
+ 
+    //  
+    // Relationships
+    //  
+    Article -> Comment [label="example label", arrowhead=crow, arrowtail=normal, dir="both"];
+    Second:modified->Comment:modified [dir="both"];
+}
